@@ -43,6 +43,7 @@ public class FilmController {
 
 	@GetMapping("/films")
 	public String afficherFilms(Model model) {
+		System.out.println("Début afficherFilms");
 		List<Film> films = this.filmService.consulterFilms();
 		
 		model.addAttribute("films", films);
