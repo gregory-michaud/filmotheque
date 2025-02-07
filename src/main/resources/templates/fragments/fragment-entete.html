@@ -1,0 +1,30 @@
+<header th:fragment="entete">
+	<h1 id="nav-title">
+		<a href="/"><img th:src="@{/images/logoFilmotheque.png}" alt="" />Filmothèque</a>
+		<th:block data-th-if="${membreEnSession != null && membreEnSession.id > 0}">
+			<span data-th-text="'[' + ${membreEnSession.prenom} + ']'"></span>
+		</th:block>
+	</h1>
+	<nav>
+		<ul>
+			<li><a href="/films" data-th-text="#{frag-entete.a.films}"></a></li>
+			<!-- Gestion de la connexion et déconnexion via Spring Security Dialect -->
+			<li sec:authorize="!isAuthenticated()">
+				<a href="/login" th:text="#{frag-entete.a.connexion}"></a>
+			</li> 
+			
+			<!-- Le lien n'est visible que si un membre est présent -->
+			<!-- ET que le membre est un administrateur -->
+			<li sec:authorize="hasRole('ROLE_ADMIN')">
+				<a href="/films/creer" data-th-text="#{frag-entete.a.films.creer}"></a>
+			</li>
+
+			<li sec:authorize="isAuthenticated()">
+				<a href="/logout" data-th-text="#{frag-entete.a.deconnexion}"></a>
+			</li>
+
+		</ul>
+	</nav>
+	
+	
+</header>
